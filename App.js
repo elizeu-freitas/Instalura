@@ -1,54 +1,23 @@
-import React, {Fragment, useState, useEffect} from 'react';
-import {
-    Dimensions,
-    StyleSheet,
-    FlatList,
-    View,
-    Text,
-    ScrollView,
-} from 'react-native';
-import {Cabecalho} from './src/components/Cabecalho';
-import {Foto} from './src/components/Foto';
-import {Comentario} from './src/components/Comentario';
-import lerFotos from './src/api/feed';
+import 'react-native-gesture-handler';
+import React from 'react';
+import Feed from './src/views/Feed/Feed';
+import Login from './src/views/Login/Login';
+import {createStackNavigator} from 'react-navigation-stack';
+import {createAppContainer} from 'react-navigation';
 
-const largura = Dimensions.get('screen').width;
-
-const App = () => {
-    const [fotos, setFotos] = useState([]);
-
-    useEffect(() => {
-        lerFotos(setFotos);
-    }, []);
-
-    return (
-        <View>
-            <FlatList
-                data={fotos}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({item}) => (
-                    <Fragment>
-                        <Cabecalho
-                            nomeUsuario={item.userName}
-                            urlImagem={item.userURL}></Cabecalho>
-                        <Foto
-                            urlFoto={item.url}
-                            descricao={item.description}
-                            qtdLikes={item.likes}
-                        />
-                        <Comentario comentarios={item.comentarios} />
-                    </Fragment>
-                )}
-            />
-        </View>
-    );
-};
-
-const estilo = StyleSheet.create({
-    imagem: {
-        width: largura,
-        height: largura,
+const navigator = createStackNavigator({
+    Login: {
+        screen: Login,
+    },
+    Feed: {
+        screen: Feed,
     },
 });
+
+const AppContainer = createAppContainer(navigator);
+
+const App = () => {
+    return <AppContainer/>;
+};
 
 export default App;

@@ -9,19 +9,16 @@ import {
 } from 'react-native';
 import estilo from './estilo';
 
-const Comentario = ({comentarios}) => {
+const Comentario = ({comentarios, adicionarComentario}) => {
     const [estComentarios, setEstComentarios] = useState(comentarios);
 
     const onComentarioEnviado = () => {
-        if (conteudoInputComentario.length > 0) {
-            const novoComentario = {
-                date: Date.now(),
-                text: conteudoInputComentario,
-                userName: 'Elizeu',
-            };
-            setEstComentarios([...estComentarios, novoComentario]);
-            campoInput.clear();
-        }
+        campoInput.clear();
+        const novoComentario = adicionarComentario(
+            conteudoInputComentario,
+            'Elizeu',
+        );
+        setEstComentarios([...estComentarios, novoComentario]);
     };
 
     let campoInput;

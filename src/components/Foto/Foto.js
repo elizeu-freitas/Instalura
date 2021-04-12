@@ -1,9 +1,8 @@
 import React, {Fragment, useState} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import estilo from './estilo';
-import {pegarImagemLike, curtirFoto} from '../../api/curtidas';
 
-const Foto = ({urlFoto, descricao, qtdLikes}) => {
+const Foto = ({urlFoto, descricao, qtdLikes, curtirFoto, pegarImagemLike}) => {
     const [curtiu, setCurtiu] = useState(false);
     const [likes, setLikes] = useState(qtdLikes);
 
